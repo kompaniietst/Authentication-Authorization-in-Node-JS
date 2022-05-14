@@ -1,5 +1,5 @@
 {
-  "name": "authentication-authorization-in-node-js",
+  "name": "Langway",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kompaniietst/Authentication-Authorization-in-Node-JS.git"
+    "url": "git+https://github.com/kompaniietst/Langway.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kompaniietst/Authentication-Authorization-in-Node-JS/issues"
+    "url": "https://github.com/kompaniietst/Langway/issues"
   },
-  "homepage": "https://github.com/kompaniietst/Authentication-Authorization-in-Node-JS#readme"
+  "homepage": "https://github.com/kompaniietst/Langway#readme"
 }
