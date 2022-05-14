@@ -1,15 +1,6 @@
-require("dotenv").config();
-require("./config/db").connect();
-
 const bcrypt = require("bcryptjs/dist/bcrypt");
-const express = require("express");
-const app = express();
 const jwt = require("jsonwebtoken");
-const auth = require("./middleware/auth");
-app.use(express.json());
-
-const User = require('./model/user');
-
+const User = require('../model/user');
 
 module.exports = function (app) {
     app.post('/login', async (req, res) => {
@@ -44,6 +35,7 @@ module.exports = function (app) {
 
     app.post('/register', async (req, res) => {
         try {
+            console.log(req.body);
             const { first_name, last_name, email, password } = req.body;
 
             if (!(email && password && first_name && last_name)) {
@@ -80,8 +72,7 @@ module.exports = function (app) {
         }
     })
 
-    app.post("/welcome", auth, (req, res) => {
+    app.get("/welcome", (req, res) => {
         res.status(200).send("Welcome 🙌 ");
     });
-
 }
