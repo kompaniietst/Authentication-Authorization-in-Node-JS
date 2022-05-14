@@ -44,9 +44,9 @@ module.exports = function (app) {
 
     app.post('/register', async (req, res) => {
         try {
-            const { first_name, last_name, email, password } = req.body;
+            const { fname, lname, email, password } = req.body;
 
-            if (!(email && password && first_name && last_name)) {
+            if (!(email && password && fname && lname)) {
                 res.status(400).send("All inputs are required");
             }
 
@@ -59,8 +59,8 @@ module.exports = function (app) {
             encryptedPassword = await bcrypt.hash(password, 10);
 
             const user = await User.create({
-                first_name,
-                last_name,
+                fname,
+                lname,
                 email: email.toLowerCase(),
                 password: encryptedPassword
             });
@@ -83,5 +83,4 @@ module.exports = function (app) {
     app.post("/welcome", auth, (req, res) => {
         res.status(200).send("Welcome 🙌 ");
     });
-
 }
