@@ -5,13 +5,16 @@ const User = require('../model/user');
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-
         if (!email && !password) {
             res.status(400).send("allinput required!");
         }
 
-        const user = await User.findOne({ email });
         const userExists = await User.findOne({ email });
+
+        if (!userExists) {
+            return res.status(400).send("User doesn't exist");
+        }
+
         const userValid = bcrypt.compare(password, user.password);
 
         if (userExists && userValid) {
@@ -34,19 +37,17 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
     try {
-        console.log(req.body);
         const { fname, lname, email, password } = req.body;
-
+        
         if (!(email && password && fname && lname)) {
             res.status(400).send("All inputs are required");
         }
-
+        
         const userExists = await User.findOne({ email });
-
+        
         if (userExists) {
             return res.status(409).send("User Already Exist. Please Login");
         }
-
         encryptedPassword = await bcrypt.hash(password, 10);
 
         const user = await User.create({
