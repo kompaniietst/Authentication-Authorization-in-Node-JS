@@ -9,15 +9,15 @@ exports.login = async (req, res) => {
             res.status(400).send("allinput required!");
         }
 
-        const userExists = await User.findOne({ email });
+        const user = await User.findOne({ email });
 
-        if (!userExists) {
+        if (!user) {
             return res.status(400).send("User doesn't exist");
         }
 
         const userValid = bcrypt.compare(password, user.password);
 
-        if (userExists && userValid) {
+        if (user && userValid) {
             const token = jwt.sign(
                 { user_id: user.id, email },
                 process.env.TOKEN_KEY,
