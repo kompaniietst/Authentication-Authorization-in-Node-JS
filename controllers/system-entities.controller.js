@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs/dist/bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require('../model/user');
+const Entity = require('../model/entity');
 
 exports.login = async (req, res) => {
     try {
@@ -75,9 +75,28 @@ exports.register = async (req, res) => {
     }
 }
 
-exports.getCurrentUser = async (req, res) => {
-    const email = req.user.email;
-    const user = await User.findOne({ email });
+exports.createEntity = async (req, res) => {
+    const { type, name } = req.body;
+    const { user_id: author } = req.user;
 
-    res.status(200).send(user);
+    if (!type || !name) {
+        res.status(400).send("All inputs are required");
+        return;
+    }
+
+    const entity = await Entity.create({
+        type,
+        name,
+        createdAt: Date.now(),
+        author: author
+    });
+
+    res.status(200).send(entity);
+}
+
+exports.getEntities = async (req, res) => {
+    const { user_id: author } = req.user;
+    //TODO validation
+    const entities = await Entity.find({ author: author })
+    res.status(200).send(entities);
 }

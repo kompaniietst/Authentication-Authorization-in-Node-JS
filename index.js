@@ -15,3 +15,4 @@ app.listen(port, () => {
 
 // routes
 require('./routes/auth.routes')(app);
+require('./routes/system-entities.routes')(app);
