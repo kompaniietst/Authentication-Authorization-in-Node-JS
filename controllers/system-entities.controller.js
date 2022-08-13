@@ -30,3 +30,9 @@ exports.getEntities = async (req, res) => {
 
     res.status(200).send(entitiesTree);
 }
+
+exports.clearDB = async (req, res) => {
+    await Entity.remove();
+
+    res.status(200).send("db is clean");
+}
